@@ -16,7 +16,7 @@ namespace WinFormsGame
         {
             InitializeComponent();
             Bitmap playerImage = new Bitmap("C:\\Users\\TemplarS4DW\\Desktop\\Characters\\$yukari.png");
-            Image part = new Bitmap(32, 92);
+            Image part = new Bitmap(48, 92);
             pictureBox1.Image = playerImage;
             Graphics graph = Graphics.FromImage(part);
             graph.DrawImage(playerImage, 0, 0, new Rectangle(new Point(0, 0), new Size(50, 100)), GraphicsUnit.Pixel);
