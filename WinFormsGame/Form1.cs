@@ -32,27 +32,6 @@ namespace WinFormsGame
             isPressedAnyKey = false;
             switch (e.KeyCode.ToString())
             {
-
-                case "A":
-                    currentAnimation = 2;
-                    break;
-                case "D":
-                    currentAnimation = 3;
-                    break;
-                case "S":
-                    currentAnimation = 4;
-                    break;
-                case "W":
-                    currentAnimation = 1;
-                    break;
-            }
-        }
-
-        private void keyboard(object sender, KeyEventArgs e)
-        {
-            switch(e.KeyCode.ToString())
-            {
-
                 case "A":
                     currentAnimation = 1;
                     break;
@@ -64,10 +43,32 @@ namespace WinFormsGame
                     break;
                 case "W":
                     currentAnimation = 3;
+                    break; ;
+            }
+        }
+
+        private void keyboard(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode.ToString())
+            {
+
+                case "A":
+                    currentAnimation = 1;
+                    isPressedAnyKey = true;
+                    break;
+                case "D":
+                    currentAnimation = 2;
+                    isPressedAnyKey = true;
+                    break;
+                case "S":
+                    currentAnimation = 0;
+                    isPressedAnyKey = true;
+                    break;
+                case "W":
+                    currentAnimation = 3;
+                    isPressedAnyKey = true;
                     break;
             }
-            currentAnimFrame = -1;
-            isPressedAnyKey = true;
         }
 
         private void update(object sender, EventArgs e)
@@ -75,33 +76,21 @@ namespace WinFormsGame
             if (isPressedAnyKey)
             {
                 playAnimationMovement();
-                if (currentAnimFrame >= 3)
-                    currentAnimFrame = 1;
+                currentAnimFrame++;
+                if (currentAnimFrame > 2)
+                    currentAnimFrame = 0;
             }
             else
             {
-                playAnimationIdle();
-                currentAnimFrame = 2;
-            }
-            currentAnimFrame++;
-        }
+                currentAnimFrame = 1;
+                playAnimationMovement();
 
-        private void playAnimationIdle()
-        {
-            if (currentAnimation >= 1)
-            {
-                Image part = new Bitmap(96, 256);
-                pictureBox2.Image = playerImage;
-                Graphics graph = Graphics.FromImage(part);
-                graph.DrawImage(playerImage, 0, 0, new Rectangle(new Point(32 * currentAnimFrame, 64 * currentAnimation), new Size(32, 64)), GraphicsUnit.Pixel);
-                pictureBox2.Size = new Size(50, 108);
-                pictureBox2.Image = part;
             }
         }
 
         private void playAnimationMovement()
         {
-            if (currentAnimation != 0 && currentAnimation <= 3)
+            if (currentAnimation != -1 && currentAnimation <= 4)
             {
                 Image part = new Bitmap(96, 256);
                 pictureBox2.Image = playerImage;
@@ -113,6 +102,11 @@ namespace WinFormsGame
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
         {
 
         }
