@@ -12,27 +12,31 @@ namespace WinFormsGame
 {
     public partial class Form1 : Form
     {
+        Image playerImage;
+        private int nowFrame = 0;
         public Form1()
         {
             InitializeComponent();
-            Bitmap playerImage = new Bitmap("C:\\Users\\TemplarS4DW\\Desktop\\Characters\\$yukari.png");
+            playerImage = new Bitmap("C:\\Users\\TemplarS4DW\\Desktop\\Characters\\$yukari.png");
+            timer1.Interval = 100;
+            timer1.Tick += new EventHandler(update);
+            timer1.Start();
+        }
+
+        private void update(object sender, EventArgs e)
+        {
+            playAnimation();
+            nowFrame++;
+        }
+
+        private void playAnimation()
+        {
             Image part = new Bitmap(48, 92);
             pictureBox1.Image = playerImage;
             Graphics graph = Graphics.FromImage(part);
-            graph.DrawImage(playerImage, 0, 0, new Rectangle(new Point(0, 0), new Size(50, 100)), GraphicsUnit.Pixel);
+            graph.DrawImage(playerImage, 0, 0, new Rectangle(new Point(0, 0), new Size(50 * nowFrame, 100)), GraphicsUnit.Pixel);
             pictureBox1.Size = new Size(100, 100);
             pictureBox1.Image = part;
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
