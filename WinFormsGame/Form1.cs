@@ -20,11 +20,36 @@ namespace WinFormsGame
         {
             InitializeComponent();
             playerImage = new Bitmap("yukari.png");
-            timer1.Interval = 150;
+            timer2.Interval = 10;
+            timer2.Tick += new EventHandler(updateMovement);
+            timer1.Interval = 125;
             timer1.Tick += new EventHandler(update);
             timer1.Start();
+            timer2.Start();
             this.KeyDown += new KeyEventHandler(keyboard);
             this.KeyUp += new KeyEventHandler(freeKey);
+        }
+
+        private void updateMovement(object sender, EventArgs e)
+        {
+            if (isPressedAnyKey)
+            {
+                switch (currentAnimation)
+                {
+                    case 1:
+                        pictureBox2.Location = new Point(pictureBox2.Location.X - 2, pictureBox2.Location.Y);
+                        break;
+                    case 2:
+                        pictureBox2.Location = new Point(pictureBox2.Location.X + 2, pictureBox2.Location.Y);
+                        break;
+                    case 0:
+                        pictureBox2.Location = new Point(pictureBox2.Location.X, pictureBox2.Location.Y + 2);
+                        break;
+                    case 3:
+                        pictureBox2.Location = new Point(pictureBox2.Location.X, pictureBox2.Location.Y - 2);
+                        break;
+                }
+            }
         }
 
         private void freeKey(object sender, KeyEventArgs e)
@@ -43,7 +68,7 @@ namespace WinFormsGame
                     break;
                 case "W":
                     currentAnimation = 3;
-                    break; ;
+                    break;
             }
         }
 
@@ -84,7 +109,6 @@ namespace WinFormsGame
             {
                 currentAnimFrame = 1;
                 playAnimationMovement();
-
             }
         }
 
